@@ -1,5 +1,6 @@
-DB 
---------------------------------------------------------------------------------------
+## database
+
+```sql
 CREATE TABLE Developers (
     DeveloperID INTEGER PRIMARY KEY AUTOINCREMENT,
     Name TEXT NOT NULL UNIQUE,
@@ -39,51 +40,47 @@ INSERT INTO Games (Name, Genre, ReviewScore, HoursPlayed, DeveloperID) VALUES
 ('The Elder Scrolls IV: Oblivion','RPG',95,51,8),
 ('Satisfactory','Automation Sim',97,165,9),
 ('Stardew Valley','Farming Sim',98,127,10);
-
-
-
-Queries
----------------------------------------------------------------------------------------------------------------------------------------------------------
-
---Sorts according to playtime, high to low
+```
+## queries
+```sql
+-- Sorts according to playtime, high to low
 SELECT * FROM Games ORDER BY HoursPlayed DESC;
---Sorts according to review score, high to low
+
+-- Sorts according to review score, high to low
 SELECT * FROM Games ORDER BY ReviewScore DESC;
 
-
---Inserts into game and developers
+-- Inserts new games and developers
 INSERT INTO Games (Name, Genre, ReviewScore, HoursPlayed, DeveloperID) VALUES
-    ('Warhammer 40,000 Space Marine 2', 'action',85,357, 11);
+    ('Warhammer 40,000 Space Marine 2', 'Action',85,357, 11);
 INSERT INTO Developers (Name, Country) VALUES
-    ('Saber interactive', 'USA');
+    ('Saber Interactive', 'USA');
 
 INSERT INTO Games (Name, Genre, ReviewScore, HoursPlayed, DeveloperID) VALUES
-    ('Devil may cry 5', 'action',95,75, 12);
+    ('Devil May Cry 5', 'Action',95,75, 12);
 INSERT INTO Developers (Name, Country) VALUES
     ('Capcom', 'Japan');
 
---Double check that inserts worked, they work
+-- Double check that inserts worked
 SELECT * FROM Games;
-Select * FROM Developers;
+SELECT * FROM Developers;
 
---Returns games in which I have too much playtime.
+-- Returns games with over 400 hours played
 SELECT * FROM Games WHERE HoursPlayed > 400;
---Returns Automation sims
-SELECT * FROM Games WHERE Genre = 'automation sim';
 
---Select with join, check
-SELECT Games.Name, Developers.name
+-- Returns automation simulation games
+SELECT * FROM Games WHERE Genre = 'Automation Sim';
+
+-- Select with JOIN (returns games with their developers)
+SELECT Games.Name, Developers.Name
 FROM Games
-INNER JOIN Developers on Games.DeveloperID = Developers.DeveloperID;
---Returns games and respective devs
+INNER JOIN Developers ON Games.DeveloperID = Developers.DeveloperID;
 
---update, check
+-- Update a game's genre
 UPDATE Games
-SET Genre = 'Souls-like' WHERE Name = 'Stardew Valley';
---Sets Stardew Valley genre to a more accurate description :)
+SET Genre = 'Souls-like'
+WHERE Name = 'Stardew Valley';
 
---delete, check
-DELETE FROM Games WHERE Name = 'Dota 2';
---My playtime is way too on that game high so might as well remove it, out of sight out of mind.
-
----------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Delete a game entry
+DELETE FROM Games
+WHERE Name = 'Dota 2';
+```
